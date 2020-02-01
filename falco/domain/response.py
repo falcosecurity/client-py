@@ -27,9 +27,25 @@ class Response:
         INFORMATIONAL = "informational"
         DEBUG = "debug"
 
+    PB_PRIORITY_TO_PRIORITY_MAP = {
+        0: Priority.EMERGENCY,
+        1: Priority.ALERT,
+        2: Priority.CRITICAL,
+        3: Priority.ERROR,
+        4: Priority.WARNING,
+        5: Priority.NOTICE,
+        6: Priority.INFORMATIONAL,
+        7: Priority.DEBUG,
+    }
+
     class Source(Enum):
         SYSCALL = "syscall"
         K8S_AUDIT = "k8s_audit"
+
+    PB_SOURCE_TO_SOURCE_MAP = {
+        0: Source.SYSCALL,
+        1: Source.K8S_AUDIT,
+    }
 
     def __init__(
         self,
@@ -75,13 +91,13 @@ class Response:
     @classmethod
     def from_proto(cls, pb_response):
         timestamp_dt = datetime.fromtimestamp(
-            pb_response.seconds + pb_response.nanos / 1e9
+            pb_response.time.seconds + pb_response.time.nanos / 1e9
         )
 
         return cls(
             time=timestamp_dt,
-            priority=Response.Priority(pb_response.priority.lower()),
-            source=Response.Priority(pb_response.source.lower()),
+            priority=Response.PB_PRIORITY_TO_PRIORITY_MAP[pb_response.priority],
+            source=Response.PB_SOURCE_TO_SOURCE_MAP[pb_response.source],
             rule=pb_response.rule,
             output=pb_response.output,
             output_fields=pb_response.output_fields,  # TODO: this field won't work, fixme
