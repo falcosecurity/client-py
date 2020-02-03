@@ -1,13 +1,17 @@
 SHELL := /bin/bash
 
 PROTOC ?= $(shell which protoc)
+GRPC_PYTHON_PLUGIN ?= $(shell which grpc_python_plugin)
 
-PROTOS := proto/schema.proto proto/output.proto
+PROTOS := protos/schema.proto protos/output.proto
 PROTO_URLS := https://raw.githubusercontent.com/falcosecurity/falco/dev/userspace/falco/schema.proto https://raw.githubusercontent.com/falcosecurity/falco/dev/userspace/falco/output.proto
 PROTO_SHAS := a1f427c114b945d0880b55058862b74015d036aa722985ca6e5474ab4ed19f69 4ce2f3e6d6ebc07a74535c4f21da73e44c6ef848ab83627b1ac987058be5ece9
 
 PROTO_DIRS := $(dir ${PROTOS})
 PROTO_DIRS_INCLUDES := $(patsubst %/, -I %, ${PROTO_DIRS})
+
+SCHEMA_OUT_DIR := falco/schema
+GRPC_OUT_DIR := falco/svc
 
 .PHONY: protos
 protos: ${PROTOS}
@@ -18,10 +22,11 @@ protos: ${PROTOS}
 define download_rule
 $(1):
 	@rm -f $(1)
-	@mkdir -p ${PROTO_DIRS}
+	@mkdir -p ${PROTO_DIRS} ${SCHEMA_OUT_DIR} ${GRPC_OUT_DIR}
 	@curl --silent -Lo $(1) $(2)
 	@echo $(3) $(1) | sha256sum -c
-	@python -m grpc_tools.protoc -I=`dirname $(1)` --python_out=. --grpc_python_out=. $(1)
+	@sed -i '/option go_package/d' $(1)
+	${PROTOC} ${PROTO_DIRS_INCLUDES} --python_out=${SCHEMA_OUT_DIR} --grpc_out=${GRPC_OUT_DIR} --plugin=protoc-gen-grpc=${GRPC_PYTHON_PLUGIN} $(1)
 endef
 $(foreach PROTO,$(PROTOS),\
 	$(eval $(call download_rule,$(PROTO),$(firstword $(PROTO_URLS)),$(firstword $(PROTO_SHAS))))\
