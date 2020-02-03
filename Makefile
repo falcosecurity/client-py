@@ -37,3 +37,11 @@ $(foreach PROTO,$(PROTOS),\
 .PHONY: clean
 clean: ${PROTO_DIRS}
 	@rm -rf $^
+
+lint:
+	flake8
+	isort -rc .
+	black .
+
+test:
+	pytest -vv --color=yes tests/
