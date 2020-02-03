@@ -8,7 +8,7 @@
 
 ```python
 import falco
-client = falco.Client(grpc_endpoint="localhost:5060", client_crt="/tmp/client.crt", client_key="/tmp/client.key", ca_root="/tmp/ca.crt")
+client = falco.Client(endpoint="localhost:5060", client_crt="/tmp/client.crt", client_key="/tmp/client.key", ca_root="/tmp/ca.crt")
 for event in client.subscribe(falco.Request(keepalive=True)):
     print(event)
 ```
