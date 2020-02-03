@@ -5,8 +5,8 @@ from typing import Dict
 from dateutil import tz
 
 from falco.utils import pb_timestamp_from_datetime
-from output_pb2 import response
-from schema_pb2 import priority, source
+from falco.schema.output_pb2 import response
+from falco.schema.schema_pb2 import priority, source
 
 
 class Response:
