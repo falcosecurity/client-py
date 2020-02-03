@@ -32,3 +32,11 @@ Perform the following edits to the Makefile:
 make clean
 make protos
 ```
+
+### Tests
+
+To run the tests, run `make test`.
+
+### Misc
+
+To format the code, run `make lint`.
