@@ -3,3 +3,4 @@ black==19.10b0
 isort==4.3.21-2
 grpcio==1.26.0
 grpcio-tools==1.26.0
+python-dateutil==2.8.1
