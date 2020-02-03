@@ -2,8 +2,11 @@ from datetime import datetime
 from enum import Enum
 from typing import Dict
 
+from dateutil import tz
+
 from falco.utils import pb_timestamp_from_datetime
 from output_pb2 import response
+from schema_pb2 import priority, source
 
 
 class Response:
@@ -48,16 +51,9 @@ class Response:
     }
 
     def __init__(
-        self,
-        time=None,
-        priority=None,
-        source=None,
-        rule=None,
-        output=None,
-        output_fields=None,
-        hostname=None,
+        self, time=None, priority=None, source=None, rule=None, output=None, output_fields=None, hostname=None,
     ):
-        self.time: datetime = time
+        self.time: datetime = time.astimezone(tz.tzutc())
         self.priority: Response.Priority = priority
         self.source: Response.Source = source
         self.rule: str = rule
@@ -90,9 +86,7 @@ class Response:
 
     @classmethod
     def from_proto(cls, pb_response):
-        timestamp_dt = datetime.fromtimestamp(
-            pb_response.time.seconds + pb_response.time.nanos / 1e9
-        )
+        timestamp_dt = datetime.fromtimestamp(pb_response.time.seconds + pb_response.time.nanos / 1e9)
 
         return cls(
             time=timestamp_dt,
@@ -100,15 +94,15 @@ class Response:
             source=Response.PB_SOURCE_TO_SOURCE_MAP[pb_response.source],
             rule=pb_response.rule,
             output=pb_response.output,
-            output_fields=pb_response.output_fields,  # TODO: this field won't work, fixme
+            output_fields=pb_response.output_fields,
             hostname=pb_response.hostname,
         )
 
     def to_proto(self):
         return response(
             time=pb_timestamp_from_datetime(self.time),
-            priority=response.priority.Value(self.priority.value),
-            source=response.source.Value(self.source.value),
+            priority=priority.Value(self.priority.value),
+            source=source.Value(self.source.value),
             rule=self.rule,
             output=self.output,
             output_fields=self.output_fields,

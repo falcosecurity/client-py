@@ -10,9 +10,7 @@ class Client:
         self._client = serviceStub(
             grpc.secure_channel(
                 grpc_endpoint,
-                credentials=get_grpc_channel_credentials(
-                    client_crt, client_key, ca_root
-                ),
+                credentials=get_grpc_channel_credentials(client_crt, client_key, ca_root),
                 options=[("grpc.max_receive_message_length", 1024 * 1024 * 512)],
             ),
         )

@@ -14,7 +14,5 @@ def get_grpc_channel_credentials(client_crt, client_key, ca_root):
     certificate_chain = load_file(client_crt)
 
     return grpc.ssl_channel_credentials(
-        root_certificates=root_certificates,
-        private_key=private_key,
-        certificate_chain=certificate_chain,
+        root_certificates=root_certificates, private_key=private_key, certificate_chain=certificate_chain,
     )
