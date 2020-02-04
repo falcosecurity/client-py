@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from enum import Enum
 from typing import Dict
@@ -50,6 +51,8 @@ class Response:
         1: Source.K8S_AUDIT,
     }
 
+    SERIALIZERS = {"json": "to_json"}
+
     def __init__(
         self, time=None, priority=None, source=None, rule=None, output=None, output_fields=None, hostname=None,
     ):
@@ -94,7 +97,7 @@ class Response:
             source=Response.PB_SOURCE_TO_SOURCE_MAP[pb_response.source],
             rule=pb_response.rule,
             output=pb_response.output,
-            output_fields=pb_response.output_fields,
+            output_fields=dict(pb_response.output_fields),
             hostname=pb_response.hostname,
         )
 
@@ -107,4 +110,17 @@ class Response:
             output=self.output,
             output_fields=self.output_fields,
             hostname=self.hostname,
+        )
+
+    def to_json(self):
+        return json.dumps(
+            {
+                "time": self.time.isoformat(),
+                "priority": self.priority.value,
+                "source": self.source.value,
+                "rule": self.rule,
+                "output": self.output,
+                "output_fields": self.output_fields,
+                "hostname": self.hostname,
+            }
         )
