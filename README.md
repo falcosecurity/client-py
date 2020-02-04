@@ -13,6 +13,17 @@ for event in client.subscribe(falco.Request(keepalive=True)):
     print(event)
 ```
 
+or try it directly (make sure you have the client certificates in `/tmp`):
+
+```
+python -m examples.get_events -o json
+```
+
+### Output formats
+
+Currently there are two output formats available: JSON and Python classes.
+To change output format, pass the `output_format` to the Client object.
+
 ## Development
 
 ### Dependencies

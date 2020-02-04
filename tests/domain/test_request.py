@@ -1,14 +1,10 @@
 import pytest
 
-from falco.domain import Request
+from falco import Request
 from output_pb2 import request
 
 
 class TestRequest:
-    @pytest.fixture
-    def req(self):
-        return Request(keepalive=True)
-
     def test_encode_and_decode(self, req):
         processed = Request.from_proto(req.to_proto())
         for field in Request.__slots__:
