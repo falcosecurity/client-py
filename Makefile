@@ -4,7 +4,7 @@ PROTOC ?= $(shell which protoc)
 GRPC_PYTHON_PLUGIN ?= $(shell which grpc_python_plugin)
 
 PROTOS := protos/schema.proto protos/output.proto
-PROTO_URLS := https://raw.githubusercontent.com/falcosecurity/falco/dev/userspace/falco/schema.proto https://raw.githubusercontent.com/falcosecurity/falco/dev/userspace/falco/output.proto
+PROTO_URLS := https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/schema.proto https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/output.proto
 PROTO_SHAS := a1f427c114b945d0880b55058862b74015d036aa722985ca6e5474ab4ed19f69 4ce2f3e6d6ebc07a74535c4f21da73e44c6ef848ab83627b1ac987058be5ece9
 
 PROTO_DIRS := $(dir ${PROTOS})
