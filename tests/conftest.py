@@ -1,7 +1,7 @@
 from datetime import datetime
-from dateutil import tz
 
 import pytest
+from dateutil import tz
 
 from falco import Request, Response
 
