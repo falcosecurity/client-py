@@ -6,12 +6,6 @@ from setuptools import setup
 here = os.path.abspath(os.path.dirname(__file__))
 
 
-# 'setup.py publish' shortcut.
-if sys.argv[-1] == "publish":
-    os.system("python setup.py sdist bdist_wheel")
-    os.system("twine upload dist/*")
-    sys.exit()
-
 about = {}
 with open(os.path.join(here, "falco", "__version__.py"), "r") as f:
     exec(f.read(), about)
