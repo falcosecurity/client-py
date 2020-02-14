@@ -22,8 +22,8 @@ jobs:
       run: |
         pip install flake8 black isort
         flake8
-        isort -rc .
-        black .
+        isort -rc . --check
+        black . --check
     - name: Test
       run: |
         pip install pytest
