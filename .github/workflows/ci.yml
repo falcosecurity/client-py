@@ -1,4 +1,4 @@
-name: Falco
+name: Falco CI
 
 on: [push]
 
