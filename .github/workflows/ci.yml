@@ -20,11 +20,9 @@ jobs:
         pip install -r requirements-dev.txt
     - name: Lint
       run: |
-        pip install flake8 black isort
         flake8
         isort -rc . --check
         black . --check
     - name: Test
       run: |
-        pip install pytest
         pytest tests/
