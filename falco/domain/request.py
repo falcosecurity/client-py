@@ -1,4 +1,4 @@
-from falco.schema.output_pb2 import request
+from falco.schema.outputs_pb2 import request
 
 
 class Request:

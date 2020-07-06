@@ -20,9 +20,11 @@ exclude = '''
   )/
   | foo.py           # also separately exclude a file named foo.py in
                      # the root of the project
-  | output_pb2_grpc.py
-  | output_pb2.py
+  | outputs_pb2_grpc.py
+  | outputs_pb2.py
   | schema_pb2_grpc.py
   | schema_pb2.py
+  | version_pb2_grpc.py
+  | version_pb2.py
 )
 '''

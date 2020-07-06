@@ -1,5 +1,6 @@
 import os
 
+import setuptools
 from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -9,7 +10,7 @@ about = {}
 with open(os.path.join(here, "falco", "__version__.py"), "r") as f:
     exec(f.read(), about)
 
-requires = ["grpcio==1.26.0", "python-dateutil==2.8.1"]
+requires = ["grpcio==1.26.0", "python-dateutil==2.8.1", "protobuf==3.12.2"]
 tests_require = ["pytest==5.3.5"]
 
 with open("README.md", "r") as f:
@@ -24,8 +25,7 @@ setup(
     author=about["__author__"],
     author_email=about["__author_email__"],
     url=about["__url__"],
-    packages=["falco"],
-    package_dir={"falco": "falco"},
+    packages=setuptools.find_packages(),
     python_requires=">=3.6",
     install_requires=requires,
     license=about["__license__"],
