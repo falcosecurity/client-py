@@ -1,7 +1,7 @@
 import pytest
 
 from falco import Request
-from output_pb2 import request
+from outputs_pb2 import request
 
 
 class TestRequest:

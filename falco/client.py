@@ -2,7 +2,7 @@ import grpc
 
 from falco.client_credentials import get_grpc_channel_credentials
 from falco.domain import Response
-from falco.svc.output_pb2_grpc import serviceStub
+from falco.svc.outputs_pb2_grpc import serviceStub
 
 
 class InvalidFormat(Exception):
