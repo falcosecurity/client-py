@@ -1,11 +1,11 @@
 SHELL := /bin/bash
 
-PROTOC ?= $(shell which protoc)
-GRPC_PYTHON_PLUGIN ?= $(shell which grpc_python_plugin)
+# This builds using 'python -m grpc_tools.protoc' and not the protoc binary
+# pip install grpcio grpcio-tools to install this module
 
-PROTOS := protos/schema.proto protos/output.proto
-PROTO_URLS := https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/schema.proto https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/output.proto
-PROTO_SHAS := a1f427c114b945d0880b55058862b74015d036aa722985ca6e5474ab4ed19f69 4ce2f3e6d6ebc07a74535c4f21da73e44c6ef848ab83627b1ac987058be5ece9
+PROTOS := protos/schema.proto protos/outputs.proto
+PROTO_URLS := https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/schema.proto https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/outputs.proto
+PROTO_SHAS := 1adf7fbb2b92793a3cf490204314af7788ffd81655c4cedb40587a22db9c1915 5e3bdc564c4d38f7d70a8fe50e6022a733ed93197edff6b824a24c6a45fed6c3
 
 PROTO_DIRS := $(dir ${PROTOS})
 PROTO_DIRS_INCLUDES := $(patsubst %/, -I %, ${PROTO_DIRS})
@@ -26,8 +26,9 @@ $(1):
 	@curl --silent -Lo $(1) $(2)
 	@echo $(3) $(1) | sha256sum -c
 	@sed -i '/option go_package/d' $(1)
-	${PROTOC} ${PROTO_DIRS_INCLUDES} --python_out=${SCHEMA_OUT_DIR} --grpc_out=${GRPC_OUT_DIR} --plugin=protoc-gen-grpc=${GRPC_PYTHON_PLUGIN} $(1)
+	python -m grpc_tools.protoc -Iprotos --python_out=${SCHEMA_OUT_DIR} --grpc_python_out=${GRPC_OUT_DIR} $(1)
 endef
+
 $(foreach PROTO,$(PROTOS),\
 	$(eval $(call download_rule,$(PROTO),$(firstword $(PROTO_URLS)),$(firstword $(PROTO_SHAS))))\
 	$(eval PROTO_URLS := $(wordlist 2,$(words $(PROTO_URLS)),$(PROTO_URLS)))\
