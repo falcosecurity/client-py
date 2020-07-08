@@ -9,7 +9,7 @@
 ```python
 import falco
 client = falco.Client(endpoint="localhost:5060", client_crt="/tmp/client.crt", client_key="/tmp/client.key", ca_root="/tmp/ca.crt")
-for event in client.subscribe(falco.Request(keepalive=True)):
+for event in client.subscribe()):
     print(event)
 ```
 
