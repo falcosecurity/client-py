@@ -54,10 +54,23 @@ class Client:
 
         self._output_format = o
 
-    def subscribe(self):  # TODO: test
+    def sub(self):  # TODO: test
 
         requests = RequestGenerator()
         responses = self._client.sub(requests.EmptyRequests())
+        for pb_resp in responses:
+            resp = Response.from_proto(pb_resp)
+
+            if self.output_format:
+                yield getattr(resp, Response.SERIALIZERS[self.output_format])()
+                continue
+
+            yield resp
+
+    def get(self):
+
+        request = outputsRequest()
+        responses = self._client.get(request)
         for pb_resp in responses:
             resp = Response.from_proto(pb_resp)
 

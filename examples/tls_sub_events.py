@@ -8,9 +8,12 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     c = falco.Client(
-        endpoint="unix:///var/run/falco.sock",
+        endpoint="localhost:5060",
+        client_crt="/tmp/client.crt",
+        client_key="/tmp/client.key",
+        ca_root="/tmp/ca.crt",
         output_format=args.output_format,
     )
 
-    for event in c.get():
+    for event in c.sub():
         print(event)
