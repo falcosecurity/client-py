@@ -21,4 +21,4 @@ def resp():
 
 @pytest.fixture
 def req():
-    return Request(keepalive=True)
+    return Request()
