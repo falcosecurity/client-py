@@ -2,7 +2,7 @@ import grpc
 
 from falco.client_credentials import get_grpc_channel_credentials
 from falco.domain import Response, Request
-from falco.svc.outputs_pb2_grpc import serviceStub
+from falco.svc.outputs_pb2_grpc import serviceStub as outputsServiceStub
 from falco.svc.version_pb2_grpc import serviceStub as versionServiceStub
 from falco.schema.version_pb2 import request as versionRequest
 from falco.schema.outputs_pb2 import request as outputsRequest
@@ -39,8 +39,8 @@ class Client:
                 options=[("grpc.max_receive_message_length", 1024 * 1024 * 512)],
             )
 
-        self._client = serviceStub(channel)
-        self._versionClient = versionServiceStub(channel)
+        self._outputs_client = outputsServiceStub(channel)
+        self._version_client = versionServiceStub(channel)
         self.output_format = output_format
 
     @property
@@ -83,4 +83,3 @@ class Client:
     def version(self):
 
         return self._versionClient.version(versionRequest())
-
