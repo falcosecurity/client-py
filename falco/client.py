@@ -11,8 +11,10 @@ from falco.schema.outputs_pb2 import request as outputsRequest
 class InvalidFormat(Exception):
     pass
 
+
 class TLSConfigError(Exception):
     pass
+
 
 class RequestGenerator:
     def __init__(self):
@@ -21,6 +23,7 @@ class RequestGenerator:
     def EmptyRequests(self):
         while True:
             yield outputsRequest()
+
 
 class Client:
     def __init__(self, endpoint, client_crt=None, client_key=None, ca_root=None, output_format=None, *args, **kw):

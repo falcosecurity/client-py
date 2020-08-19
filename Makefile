@@ -46,3 +46,4 @@ lint:
 
 test:
 	pytest -vv --color=yes tests/
+	flake8
