@@ -60,7 +60,7 @@ class Client:
     def sub(self):  # TODO: test
 
         requests = RequestGenerator()
-        responses = self._client.sub(requests.EmptyRequests())
+        responses = self._outputs_client.sub(requests.EmptyRequests())
         for pb_resp in responses:
             resp = Response.from_proto(pb_resp)
 
@@ -73,7 +73,7 @@ class Client:
     def get(self):
 
         request = outputsRequest()
-        responses = self._client.get(request)
+        responses = self._outputs_client.get(request)
         for pb_resp in responses:
             resp = Response.from_proto(pb_resp)
 
@@ -85,4 +85,4 @@ class Client:
 
     def version(self):
 
-        return self._versionClient.version(versionRequest())
+        return self._version_client.version(versionRequest())
