@@ -1,16 +1,40 @@
 import json
-from datetime import datetime
+import time
+from datetime import datetime, timedelta
 from enum import Enum
-from typing import Dict
+from typing import Dict, Optional
 
 from dateutil import tz
 
-from falco.schema.outputs_pb2 import response
+from falco.schema.outputs_pb2 import request, response
 from falco.schema.schema_pb2 import priority, source
 from falco.utils import pb_timestamp_from_datetime
 
 
-class Response:
+class OutputsRequest:
+    __slots__ = ()
+
+    @classmethod
+    def from_proto(cls, pb_request):
+        return cls()
+
+    def to_proto(self):
+        return request()
+
+    @staticmethod
+    def generator(with_delay: float = 0.0, run_for: Optional[timedelta] = None):
+        started_at = datetime.utcnow()
+        while True:
+            yield OutputsRequest().to_proto()
+
+            if run_for is not None:
+                if datetime.utcnow() - started_at > run_for:
+                    return
+
+            time.sleep(with_delay)
+
+
+class OutputsResponse:
     __slots__ = (
         "time",
         "_priority",
@@ -57,8 +81,8 @@ class Response:
         self, time=None, priority=None, source=None, rule=None, output=None, output_fields=None, hostname=None,
     ):
         self.time: datetime = time.astimezone(tz.tzutc())
-        self.priority: Response.Priority = priority
-        self.source: Response.Source = source
+        self.priority: OutputsResponse.Priority = priority
+        self.source: OutputsResponse.Source = source
         self.rule: str = rule
         self.output: str = output
         self.output_fields: Dict = output_fields
@@ -74,7 +98,7 @@ class Response:
     @priority.setter
     def priority(self, p):
         self._priority = None
-        if p and isinstance(p, Response.Priority):
+        if p and isinstance(p, OutputsResponse.Priority):
             self._priority = p
 
     @property
@@ -84,7 +108,7 @@ class Response:
     @source.setter
     def source(self, s):
         self._source = None
-        if s and isinstance(s, Response.Source):
+        if s and isinstance(s, OutputsResponse.Source):
             self._source = s
 
     @classmethod
@@ -93,8 +117,8 @@ class Response:
 
         return cls(
             time=timestamp_dt,
-            priority=Response.PB_PRIORITY_TO_PRIORITY_MAP[pb_response.priority],
-            source=Response.PB_SOURCE_TO_SOURCE_MAP[pb_response.source],
+            priority=OutputsResponse.PB_PRIORITY_TO_PRIORITY_MAP[pb_response.priority],
+            source=OutputsResponse.PB_SOURCE_TO_SOURCE_MAP[pb_response.source],
             rule=pb_response.rule,
             output=pb_response.output,
             output_fields=dict(pb_response.output_fields),
