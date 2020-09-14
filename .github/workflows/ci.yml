@@ -25,4 +25,5 @@ jobs:
         black . --check
     - name: Test
       run: |
+        python -m tests.mock &
         pytest tests/
