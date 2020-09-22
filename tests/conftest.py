@@ -1,8 +1,8 @@
 from datetime import datetime
 
-import pytest
 from dateutil import tz
 
+import pytest
 from falco import Request, Response
 
 

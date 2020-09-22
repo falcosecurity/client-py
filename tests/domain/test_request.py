@@ -1,5 +1,4 @@
 import pytest
-
 from falco import Request
 from outputs_pb2 import request
 

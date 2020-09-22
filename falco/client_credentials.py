@@ -1,5 +1,4 @@
 import grpc
-
 from falco.utils import load_file
 
 
