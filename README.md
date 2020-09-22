@@ -13,22 +13,24 @@ for event in client.sub()):
     print(event)
 ```
 
-or try it directly (make sure you have the client certificates in `/tmp`):
+or try it directly (make sure you have the client certificates in `/tmp` or use the unix socket address), for example:
 
 ```
-python -m examples.get_events -o json
+python -m examples.tls_sub_events -o json
+python -m examples.unixsocket_get_events -o json
+python -m examples.unixsocket_get_version
 ```
 
-### Output formats
+### Output format
 
 Currently there are two output formats available: JSON and Python classes.
-To change output format, pass the `output_format` to the Client object.
+To change output format, pass the `output_format` parameter to the Client object.
 
 ## Development
 
 ### Dependencies
 
-**TBD**
+To install development dependencies, run `pip install -r requirements-dev.txt`.
 
 ### Update protos
 

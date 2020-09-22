@@ -14,7 +14,6 @@ MOCK_ADDRESS = "unix:///tmp/falcomock.sock"
 
 class FalcoOutputsServicer:
     def __init__(self):
-        super().__init__()
         self.events = [
             OutputsResponse(
                 time=datetime(2020, 1, 1, 22, 55, 59, 300000, tz.UTC),
@@ -55,9 +54,6 @@ class FalcoOutputsServicer:
 
 
 class FalcoVersionServicer:
-    def __init__(self):
-        super().__init__()
-
     def version(self, request, context):
         return VersionResponse(
             version="123456", major=1, minor=2, patch=3, prerelease="654321", build="1337"

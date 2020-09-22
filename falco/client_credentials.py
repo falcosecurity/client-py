@@ -1,6 +1,9 @@
 import grpc
 
-from falco.utils import load_file
+
+def load_file(filepath):
+    with open(filepath, "rb") as f:
+        return f.read()
 
 
 def get_grpc_channel_credentials(client_crt, client_key, ca_root):
