@@ -45,5 +45,5 @@ lint:
 	black .
 
 test:
+	python -m tests.mock &
 	pytest -vv --color=yes tests/
-	flake8

@@ -6,9 +6,9 @@ from typing import Dict, Optional
 
 from dateutil import tz
 
+from falco.domain.common import pb_timestamp_from_datetime
 from falco.schema.outputs_pb2 import request, response
 from falco.schema.schema_pb2 import priority, source
-from falco.utils import pb_timestamp_from_datetime
 
 
 class OutputsRequest:
