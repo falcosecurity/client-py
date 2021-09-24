@@ -21,6 +21,7 @@ def outputs_response():
         output="output",
         output_fields={"a": "b"},
         hostname="hostname",
+        tags=["test"],
     )
 
 

@@ -23,6 +23,7 @@ class FalcoOutputsServicer:
                 output="1",
                 output_fields={"a": "b"},
                 hostname="hostname",
+                tags=["test"],
             ),
             OutputsResponse(
                 time=datetime(2020, 1, 1, 22, 55, 59, 300000, tz.UTC),
@@ -32,6 +33,7 @@ class FalcoOutputsServicer:
                 output="2",
                 output_fields={"a": "b"},
                 hostname="hostname",
+                tags=["test"],
             ),
             OutputsResponse(
                 time=datetime(2020, 1, 1, 22, 55, 59, 300000, tz.UTC),
@@ -41,6 +43,7 @@ class FalcoOutputsServicer:
                 output="3",
                 output_fields={"a": "b"},
                 hostname="hostname",
+                tags=["test"],
             ),
         ]
 

@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='falco.version',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\rversion.proto\x12\rfalco.version\"\t\n\x07request\"k\n\x08response\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\r\n\x05major\x18\x02 \x01(\r\x12\r\n\x05minor\x18\x03 \x01(\r\x12\r\n\x05patch\x18\x04 \x01(\r\x12\x12\n\nprerelease\x18\x05 \x01(\t\x12\r\n\x05\x62uild\x18\x06 \x01(\t2E\n\x07service\x12:\n\x07version\x12\x16.falco.version.request\x1a\x17.falco.version.responseb\x06proto3')
+  serialized_pb=_b('\n\rversion.proto\x12\rfalco.version\"\t\n\x07request\"\xa3\x01\n\x08response\x12\x0f\n\x07version\x18\x01 \x01(\t\x12\r\n\x05major\x18\x02 \x01(\r\x12\r\n\x05minor\x18\x03 \x01(\r\x12\r\n\x05patch\x18\x04 \x01(\r\x12\x12\n\nprerelease\x18\x05 \x01(\t\x12\r\n\x05\x62uild\x18\x06 \x01(\t\x12\x16\n\x0e\x65ngine_version\x18\x07 \x01(\r\x12\x1e\n\x16\x65ngine_fields_checksum\x18\x08 \x01(\t2E\n\x07service\x12:\n\x07version\x12\x16.falco.version.request\x1a\x17.falco.version.responseb\x06proto3')
 )
 
 
@@ -99,6 +99,20 @@ _RESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='engine_version', full_name='falco.version.response.engine_version', index=6,
+      number=7, type=13, cpp_type=3, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='engine_fields_checksum', full_name='falco.version.response.engine_fields_checksum', index=7,
+      number=8, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -111,8 +125,8 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=43,
-  serialized_end=150,
+  serialized_start=44,
+  serialized_end=207,
 )
 
 DESCRIPTOR.message_types_by_name['request'] = _REQUEST
@@ -141,8 +155,8 @@ _SERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=152,
-  serialized_end=221,
+  serialized_start=209,
+  serialized_end=278,
   methods=[
   _descriptor.MethodDescriptor(
     name='version',
