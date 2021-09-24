@@ -43,6 +43,7 @@ class OutputsResponse:
         "output",
         "output_fields",
         "hostname",
+        "tags",
     )
 
     class Priority(Enum):
@@ -78,7 +79,15 @@ class OutputsResponse:
     SERIALIZERS = {"json": "to_json"}
 
     def __init__(
-        self, time=None, priority=None, source=None, rule=None, output=None, output_fields=None, hostname=None,
+        self,
+        time=None,
+        priority=None,
+        source=None,
+        rule=None,
+        output=None,
+        output_fields=None,
+        hostname=None,
+        tags=None,
     ):
         self.time: datetime = time.astimezone(tz.tzutc())
         self.priority: OutputsResponse.Priority = priority
@@ -87,9 +96,10 @@ class OutputsResponse:
         self.output: str = output
         self.output_fields: Dict = output_fields
         self.hostname: str = hostname
+        self.tags: list = tags
 
     def __repr__(self):
-        return f"{self.__class__.__name__}(time={self.time}, priority={self.priority}, source={self.source}, rule={self.rule}, output={self.output}, output_fields={self.output_fields}, hostname={self.hostname})"
+        return f"{self.__class__.__name__}(time={self.time}, priority={self.priority}, source={self.source}, rule={self.rule}, output={self.output}, output_fields={self.output_fields}, hostname={self.hostname}, tags={self.tags})"
 
     @property
     def priority(self):
@@ -123,6 +133,7 @@ class OutputsResponse:
             output=pb_response.output,
             output_fields=dict(pb_response.output_fields),
             hostname=pb_response.hostname,
+            tags=list(pb_response.tags),
         )
 
     def to_proto(self):
@@ -134,6 +145,7 @@ class OutputsResponse:
             output=self.output,
             output_fields=self.output_fields,
             hostname=self.hostname,
+            tags=self.tags,
         )
 
     def to_json(self):
@@ -146,5 +158,6 @@ class OutputsResponse:
                 "output": self.output,
                 "output_fields": self.output_fields,
                 "hostname": self.hostname,
+                "tags": self.tags,
             }
         )

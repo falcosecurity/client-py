@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='falco.outputs',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\routputs.proto\x12\rfalco.outputs\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0cschema.proto\"\t\n\x07request\"\xab\x02\n\x08response\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x08priority\x18\x02 \x01(\x0e\x32\x16.falco.schema.priority\x12$\n\x06source\x18\x03 \x01(\x0e\x32\x14.falco.schema.source\x12\x0c\n\x04rule\x18\x04 \x01(\t\x12\x0e\n\x06output\x18\x05 \x01(\t\x12@\n\routput_fields\x18\x06 \x03(\x0b\x32).falco.outputs.response.OutputFieldsEntry\x12\x10\n\x08hostname\x18\x07 \x01(\t\x1a\x33\n\x11OutputFieldsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\x7f\n\x07service\x12:\n\x03sub\x12\x16.falco.outputs.request\x1a\x17.falco.outputs.response(\x01\x30\x01\x12\x38\n\x03get\x12\x16.falco.outputs.request\x1a\x17.falco.outputs.response0\x01\x62\x06proto3')
+  serialized_pb=_b('\n\routputs.proto\x12\rfalco.outputs\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x0cschema.proto\"\t\n\x07request\"\xb9\x02\n\x08response\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x08priority\x18\x02 \x01(\x0e\x32\x16.falco.schema.priority\x12$\n\x06source\x18\x03 \x01(\x0e\x32\x14.falco.schema.source\x12\x0c\n\x04rule\x18\x04 \x01(\t\x12\x0e\n\x06output\x18\x05 \x01(\t\x12@\n\routput_fields\x18\x06 \x03(\x0b\x32).falco.outputs.response.OutputFieldsEntry\x12\x10\n\x08hostname\x18\x07 \x01(\t\x12\x0c\n\x04tags\x18\x08 \x03(\t\x1a\x33\n\x11OutputFieldsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t:\x02\x38\x01\x32\x7f\n\x07service\x12:\n\x03sub\x12\x16.falco.outputs.request\x1a\x17.falco.outputs.response(\x01\x30\x01\x12\x38\n\x03get\x12\x16.falco.outputs.request\x1a\x17.falco.outputs.response0\x01\x62\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,schema__pb2.DESCRIPTOR,])
 
@@ -86,8 +86,8 @@ _RESPONSE_OUTPUTFIELDSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=339,
-  serialized_end=390,
+  serialized_start=353,
+  serialized_end=404,
 )
 
 _RESPONSE = _descriptor.Descriptor(
@@ -146,6 +146,13 @@ _RESPONSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='tags', full_name='falco.outputs.response.tags', index=7,
+      number=8, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -159,7 +166,7 @@ _RESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=91,
-  serialized_end=390,
+  serialized_end=404,
 )
 
 _RESPONSE_OUTPUTFIELDSENTRY.containing_type = _RESPONSE
@@ -202,8 +209,8 @@ _SERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=392,
-  serialized_end=519,
+  serialized_start=406,
+  serialized_end=533,
   methods=[
   _descriptor.MethodDescriptor(
     name='sub',

@@ -32,4 +32,5 @@ class TestOutputsResponse:
             "rule": "rule",
             "source": "k8s_audit",
             "time": "2020-01-01T22:55:59.300000+00:00",
+            "tags": ["test"],
         }
