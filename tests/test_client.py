@@ -18,6 +18,8 @@ class TestClient:
         assert version.patch == 3
         assert version.prerelease == "654321"
         assert version.build == "1337"
+        assert version.engine_version == 1
+        assert version.engine_fields_checksum == "12345678"
 
     def test_client_get_outputs(self, client):
         for ev in client.get():
