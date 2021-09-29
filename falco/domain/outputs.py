@@ -70,10 +70,12 @@ class OutputsResponse:
     class Source(Enum):
         SYSCALL = "syscall"
         K8S_AUDIT = "k8s_audit"
+        INTERNAL = "internal"
 
     PB_SOURCE_TO_SOURCE_MAP = {
         0: Source.SYSCALL,
         1: Source.K8S_AUDIT,
+        2: Source.INTERNAL,
     }
 
     SERIALIZERS = {"json": "to_json"}

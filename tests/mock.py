@@ -59,7 +59,14 @@ class FalcoOutputsServicer:
 class FalcoVersionServicer:
     def version(self, request, context):
         return VersionResponse(
-            version="123456", major=1, minor=2, patch=3, prerelease="654321", build="1337"
+            version="123456",
+            major=1,
+            minor=2,
+            patch=3,
+            prerelease="654321",
+            build="1337",
+            engine_version=1,
+            engine_fields_checksum="12345678",
         ).to_proto()
 
 
