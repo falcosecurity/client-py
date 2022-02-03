@@ -8,7 +8,7 @@ from dateutil import tz
 
 from falco.domain.common import pb_timestamp_from_datetime
 from falco.schema.outputs_pb2 import request, response
-from falco.schema.schema_pb2 import priority, source
+from falco.schema.schema_pb2 import priority
 
 
 class OutputsRequest:
@@ -38,7 +38,7 @@ class OutputsResponse:
     __slots__ = (
         "time",
         "_priority",
-        "_source",
+        "source",
         "rule",
         "output",
         "output_fields",
@@ -67,17 +67,6 @@ class OutputsResponse:
         7: Priority.DEBUG,
     }
 
-    class Source(Enum):
-        SYSCALL = "syscall"
-        K8S_AUDIT = "k8s_audit"
-        INTERNAL = "internal"
-
-    PB_SOURCE_TO_SOURCE_MAP = {
-        0: Source.SYSCALL,
-        1: Source.K8S_AUDIT,
-        2: Source.INTERNAL,
-    }
-
     SERIALIZERS = {"json": "to_json"}
 
     def __init__(
@@ -93,7 +82,7 @@ class OutputsResponse:
     ):
         self.time: datetime = time.astimezone(tz.tzutc())
         self.priority: OutputsResponse.Priority = priority
-        self.source: OutputsResponse.Source = source
+        self.source: str = source
         self.rule: str = rule
         self.output: str = output
         self.output_fields: Dict = output_fields
@@ -113,16 +102,6 @@ class OutputsResponse:
         if p and isinstance(p, OutputsResponse.Priority):
             self._priority = p
 
-    @property
-    def source(self):
-        return self._source
-
-    @source.setter
-    def source(self, s):
-        self._source = None
-        if s and isinstance(s, OutputsResponse.Source):
-            self._source = s
-
     @classmethod
     def from_proto(cls, pb_response):
         timestamp_dt = datetime.fromtimestamp(pb_response.time.seconds + pb_response.time.nanos / 1e9)
@@ -130,7 +109,7 @@ class OutputsResponse:
         return cls(
             time=timestamp_dt,
             priority=OutputsResponse.PB_PRIORITY_TO_PRIORITY_MAP[pb_response.priority],
-            source=OutputsResponse.PB_SOURCE_TO_SOURCE_MAP[pb_response.source],
+            source=pb_response.source,
             rule=pb_response.rule,
             output=pb_response.output,
             output_fields=dict(pb_response.output_fields),
@@ -142,7 +121,7 @@ class OutputsResponse:
         return response(
             time=pb_timestamp_from_datetime(self.time),
             priority=priority.Value(self.priority.value),
-            source=source.Value(self.source.value),
+            source=self.source,
             rule=self.rule,
             output=self.output,
             output_fields=self.output_fields,
@@ -155,7 +134,7 @@ class OutputsResponse:
             {
                 "time": self.time.isoformat(),
                 "priority": self.priority.value,
-                "source": self.source.value,
+                "source": self.source,
                 "rule": self.rule,
                 "output": self.output,
                 "output_fields": self.output_fields,

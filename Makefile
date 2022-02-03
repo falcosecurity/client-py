@@ -5,7 +5,7 @@ SHELL := /bin/bash
 
 PROTOS := protos/schema.proto protos/outputs.proto protos/version.proto
 PROTO_URLS := https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/schema.proto https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/outputs.proto https://raw.githubusercontent.com/falcosecurity/falco/master/userspace/falco/version.proto
-PROTO_SHAS := ad4e9d62717e82b9fb9ec30625d392fd66ced3e53eb73faea739c63063650ac3 18fa7f7a4870ae0e0703c775fda41362aa654445893546d9b2d49f59dd487026 c57a8a3f37a14ca8f33ce6d26156c9348e716029bca87bf9143807a68b1f31f5
+PROTO_SHAS := c2dc18811ca0d2d2cece539bdee02a3f79239ca8fa0c0aa279a56277605084b7 8fdd0a921d87908df2731b8b8b40ac9a51d2369bad4351db4a3ad79584deaa61 c57a8a3f37a14ca8f33ce6d26156c9348e716029bca87bf9143807a68b1f31f5
 
 PROTO_DIRS := $(dir ${PROTOS})
 PROTO_DIRS_INCLUDES := $(patsubst %/, -I %, ${PROTO_DIRS})
@@ -40,9 +40,9 @@ clean: ${PROTO_DIRS}
 	@rm -rf $^
 
 lint:
-	flake8
-	isort -rc .
+	isort .
 	black .
+	flake8
 
 test:
 	python -m tests.mock &
