@@ -18,7 +18,7 @@ class FalcoOutputsServicer:
             OutputsResponse(
                 time=datetime(2020, 1, 1, 22, 55, 59, 300000, tz.UTC),
                 priority=OutputsResponse.Priority.CRITICAL,
-                source=OutputsResponse.Source.K8S_AUDIT,
+                source="k8s_audit",
                 rule="rule",
                 output="1",
                 output_fields={"a": "b"},
@@ -28,7 +28,7 @@ class FalcoOutputsServicer:
             OutputsResponse(
                 time=datetime(2020, 1, 1, 22, 55, 59, 300000, tz.UTC),
                 priority=OutputsResponse.Priority.CRITICAL,
-                source=OutputsResponse.Source.K8S_AUDIT,
+                source="k8s_audit",
                 rule="rule",
                 output="2",
                 output_fields={"a": "b"},
@@ -38,7 +38,7 @@ class FalcoOutputsServicer:
             OutputsResponse(
                 time=datetime(2020, 1, 1, 22, 55, 59, 300000, tz.UTC),
                 priority=OutputsResponse.Priority.CRITICAL,
-                source=OutputsResponse.Source.K8S_AUDIT,
+                source="k8s_audit",
                 rule="rule",
                 output="3",
                 output_fields={"a": "b"},

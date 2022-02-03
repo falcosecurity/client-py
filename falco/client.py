@@ -10,7 +10,10 @@ from falco.svc.version_pb2_grpc import serviceStub as versionServiceStub
 class Client:
     def __init__(self, endpoint, client_crt=None, client_key=None, ca_root=None, output_format=None, *args, **kw):
         if endpoint.startswith("unix:///"):
-            channel = grpc.insecure_channel(endpoint, options=[("grpc.max_receive_message_length", 1024 * 1024 * 512)],)
+            channel = grpc.insecure_channel(
+                endpoint,
+                options=[("grpc.max_receive_message_length", 1024 * 1024 * 512)],
+            )
 
         else:
             if None in [client_crt, client_key, ca_root]:

@@ -16,7 +16,7 @@ def outputs_response():
     return OutputsResponse(
         time=datetime(2020, 1, 1, 22, 55, 59, 300000, tz.UTC),
         priority=OutputsResponse.Priority.CRITICAL,
-        source=OutputsResponse.Source.K8S_AUDIT,
+        source="k8s_audit",
         rule="rule",
         output="output",
         output_fields={"a": "b"},
