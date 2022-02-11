@@ -10,7 +10,7 @@ about = {}
 with open(os.path.join(here, "falco", "__version__.py"), "r") as f:
     exec(f.read(), about)
 
-requires = ["grpcio==1.26.0", "python-dateutil==2.8.1", "protobuf==3.12.2"]
+requires = ["grpcio==1.26.0", "python-dateutil==2.8.1", "protobuf==3.15.0"]
 tests_require = ["pytest==5.3.5"]
 
 with open("README.md", "r") as f:
